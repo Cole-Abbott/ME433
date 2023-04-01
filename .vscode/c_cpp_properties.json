@@ -5,9 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}",
-                "/Applications/microchip/xc32/v4.21/pic32mx/include",
-                "/Applications/microchip/xc32/v4.21/pic32mx/include/pic32m-libs/lega-c",
-                "/Applications/microchip/xc32/v4.21/pic32mx/include/proc/PIC32MX"
+                "/Applications/microchip/xc32/v4.21/pic32mx/include"
             ],
             "defines": [],
             "macFrameworkPath": [
