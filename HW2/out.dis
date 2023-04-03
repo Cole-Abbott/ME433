@@ -2300,9 +2300,9 @@ void NU32DIP_Startup() {
 9d0090dc:	27bd0008 	addiu	sp,sp,8
 
 9d0090e0 <NU32DIP_ReadUART1>:
-// block other functions until you get a '\r' or '\n'
-// send the pointer to your char array and the number of elements in the array
-
+//Read from UART1
+//block other functions until you get a '\\r' or '\\n'
+//send the pointer to your char array and the number of elements in the array
 void NU32DIP_ReadUART1(char * message, int maxLength) {
     char data = 0;
     int complete = 0, num_bytes = 0;
@@ -2358,7 +2358,6 @@ void NU32DIP_ReadUART1(char * message, int maxLength) {
 9d009144 <NU32DIP_WriteUART1>:
 
 // Write a character array using UART1
-
 void NU32DIP_WriteUART1(const char * string) {
     while (*string != '\0') {
 9d009144:	80820000 	lb	v0,0(a0)

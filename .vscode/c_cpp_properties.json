@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}",
-                "${workspaceFolder}"
+                "/Users/cole/code/ME433/src",
+                "${workspaceFolder}/src"
             ],
             "defines": [],
             "macFrameworkPath": [

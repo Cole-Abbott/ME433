@@ -28,7 +28,7 @@ void blink(int iterations, int time_ms){
 		// so each millisecond is 24000 ticks
 		// wait half in each delay
 		while(_CP0_GET_COUNT() < t + 12000*time_ms){}
-		
+        
 		NU32DIP_GREEN = 1; // off
 		NU32DIP_YELLOW = 0; // on
 		t = _CP0_GET_COUNT(); // should really check for overflow here
