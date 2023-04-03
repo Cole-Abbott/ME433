@@ -6,7 +6,7 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}",
                 "/Users/cole/code/ME433/src",
-                "${workspaceFolder}/src"
+                "/Users/cole/code/ME433/src/**"
             ],
             "defines": [],
             "macFrameworkPath": [

@@ -2,7 +2,7 @@
 #define NU32DIP__H__
 
 #include<xc.h>           // processor SFR definitions
-#include<sys/attribs.h>  // __ISR macro
+#include<src/attribs.h>  // __ISR macro
 #include <stdio.h>
 
 
