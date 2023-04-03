@@ -48,9 +48,8 @@ void NU32DIP_Startup() {
 }
 
 // Read from UART1
-// block other functions until you get a '\r' or '\n'
+// block other functions until you get a '\\r' or '\\n'
 // send the pointer to your char array and the number of elements in the array
-
 void NU32DIP_ReadUART1(char * message, int maxLength) {
     char data = 0;
     int complete = 0, num_bytes = 0;
@@ -75,7 +74,6 @@ void NU32DIP_ReadUART1(char * message, int maxLength) {
 }
 
 // Write a character array using UART1
-
 void NU32DIP_WriteUART1(const char * string) {
     while (*string != '\0') {
         while (U1STAbits.UTXBF) {

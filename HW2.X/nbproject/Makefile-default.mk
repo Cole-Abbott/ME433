@@ -78,11 +78,31 @@ LDLIBSOPTIONS=
 # fixDeps replaces a bunch of sed/cat/printf statements that slow down the build
 FIXDEPS=fixDeps
 
+# The following macros may be used in the pre and post step lines
+_/_=/
+ShExtension=.sh
+Device=PIC32MX170F256B
+ProjectDir=/Users/cole/code/ME433/HW2.X
+ProjectName=HW2
+ConfName=default
+ImagePath=dist/default/${IMAGE_TYPE}/HW2.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+ImageDir=dist/default/${IMAGE_TYPE}
+ImageName=HW2.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+IsDebug="true"
+else
+IsDebug="false"
+endif
+
 .build-conf:  ${BUILD_SUBPROJECTS}
 ifneq ($(INFORMATION_MESSAGE), )
 	@echo $(INFORMATION_MESSAGE)
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/HW2.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
+	@echo "--------------------------------------"
+	@echo "User defined post-build step: [/Users/cole/code/OldProjects/MECHE-333/HW9/01_Quickstart_nu32dip/nu32utility /dev/tty.usbserial-110 ${ImagePath}]"
+	@/Users/cole/code/OldProjects/MECHE-333/HW9/01_Quickstart_nu32dip/nu32utility /dev/tty.usbserial-110 ${ImagePath}
+	@echo "--------------------------------------"
 
 MP_PROCESSOR_OPTION=32MX170F256B
 MP_LINKER_FILE_OPTION=,--script="template/NU32DIPbootloaded.ld"
