@@ -2,9 +2,8 @@
 #define NU32DIP__H__
 
 #include<xc.h>           // processor SFR definitions
-#include<src/attribs.h>  // __ISR macro
+#include<sys/attribs.h>  // __ISR macro
 #include <stdio.h>
-
 
 #define NU32DIP_SYS_FREQ 48000000ul    // 48 million Hz
 

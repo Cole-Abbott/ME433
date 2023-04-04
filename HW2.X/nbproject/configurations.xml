@@ -69,7 +69,7 @@
         <makeUseCleanTarget>false</makeUseCleanTarget>
         <makeCustomizationPreStep></makeCustomizationPreStep>
         <makeCustomizationPostStepEnabled>true</makeCustomizationPostStepEnabled>
-        <makeCustomizationPostStep>/Users/cole/code/OldProjects/MECHE-333/HW9/01_Quickstart_nu32dip/nu32utility /dev/tty.usbserial-110 ${ImagePath}</makeCustomizationPostStep>
+        <makeCustomizationPostStep>/Users/cole/code/OldProjects/MECHE-333/HW9/01_Quickstart_nu32dip/nu32utility /dev/tty.usbserial-10 ${ImagePath}</makeCustomizationPostStep>
         <makeCustomizationPutChecksumInUserID>false</makeCustomizationPutChecksumInUserID>
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>

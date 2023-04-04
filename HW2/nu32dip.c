@@ -47,9 +47,9 @@ void NU32DIP_Startup() {
     __builtin_enable_interrupts();
 }
 
-//Read from UART1
-//block other functions until you get a '\\r' or '\\n'
-//send the pointer to your char array and the number of elements in the array
+// Read from UART1
+// block other functions until you get a '\\r' or '\\n'
+// send the pointer to your char array and the number of elements in the array
 void NU32DIP_ReadUART1(char * message, int maxLength) {
     char data = 0;
     int complete = 0, num_bytes = 0;

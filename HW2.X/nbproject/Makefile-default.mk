@@ -100,8 +100,8 @@ ifneq ($(INFORMATION_MESSAGE), )
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/HW2.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 	@echo "--------------------------------------"
-	@echo "User defined post-build step: [/Users/cole/code/OldProjects/MECHE-333/HW9/01_Quickstart_nu32dip/nu32utility /dev/tty.usbserial-110 ${ImagePath}]"
-	@/Users/cole/code/OldProjects/MECHE-333/HW9/01_Quickstart_nu32dip/nu32utility /dev/tty.usbserial-110 ${ImagePath}
+	@echo "User defined post-build step: [/Users/cole/code/OldProjects/MECHE-333/HW9/01_Quickstart_nu32dip/nu32utility /dev/tty.usbserial-10 ${ImagePath}]"
+	@/Users/cole/code/OldProjects/MECHE-333/HW9/01_Quickstart_nu32dip/nu32utility /dev/tty.usbserial-10 ${ImagePath}
 	@echo "--------------------------------------"
 
 MP_PROCESSOR_OPTION=32MX170F256B
