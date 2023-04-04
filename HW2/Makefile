@@ -1,7 +1,7 @@
 XC32PATH=/Applications/microchip/xc32/v4.21/bin
 HARMONYPATH=
 NU32PATH=/Users/cole/code/OldProjects/MECHE-333/HW9/01_Quickstart_nu32dip
-PORT=/dev/tty.usbserial-110
+PORT=/dev/tty.usbserial-10
 TERMEMU=screen
 
 #This file is used to:
