@@ -1,2 +1,7 @@
 /HW2.X/dist/
 /HW2.X/build/
+*.o
+*.dis
+*.elf
+*.hex
+*.map
