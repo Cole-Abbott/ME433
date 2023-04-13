@@ -1,0 +1,3 @@
+can make cs go low and high automaticaly but we don't want this 
+so we can write 2 8 bit numbers and the chip will think it is 
+getting one 16 bit number
