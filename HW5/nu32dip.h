@@ -16,4 +16,5 @@ void NU32DIP_WriteUART1(const char * string);
 #define NU32DIP_YELLOW LATBbits.LATB5
 #define NU32DIP_USER PORTAbits.RA4
 
+
 #endif // NU32DIP__H__
