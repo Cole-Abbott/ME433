@@ -1,4 +1,4 @@
-21603062735135341
+21604747705068880
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -34087,8 +34087,8 @@ PinHeader_1x06_P2.54mm_Vertical
 Through hole straight pin header, 1x06, 2.54mm pitch, single row
 Through hole pin header THT 1x06 2.54mm single row
 0
-6
-6
+8
+8
 Connector_PinHeader_2.54mm
 PinHeader_1x06_P2.54mm_Vertical_SMD_Pin1Left
 surface-mounted straight pin header, 1x06, 2.54mm pitch, single row, style 1 (pin 1 left)
@@ -60725,11 +60725,18 @@ Yellow 5381 Series LED
 2
 2
 ME433
+AdaFruit Friend
+Through hole straight pin header, 1x06, 2.54mm pitch, single row
+Through hole pin header THT 1x06 2.54mm single row
+0
+8
+8
+ME433
 SW_PUSH
 https://www.omron.com/ecb/products/pdf/en-b3f.pdf
 tact sw push 6mm
 0
-4
+2
 2
 ME433
 SlideSwitch
