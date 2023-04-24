@@ -30,7 +30,7 @@ class Plotter:
         self.line = Line2D(self.tdata, self.ydata)
 
         self.ax.add_line(self.line)
-        self.ax.set_ylim(-3.3, 3.3)
+        self.ax.set_ylim(-100, 100)
         self.ax.set_xlim(0, self.maxt)
 
     def update(self, y):
@@ -74,7 +74,7 @@ ani = animation.FuncAnimation(fig, plotter.update, serial_getter, interval=1,
                               blit=True, cache_frame_data=False)
 
 ax.set_xlabel("Samples")
-ax.set_ylabel("Voltage (V)")
-fig.canvas.manager.set_window_title('Plot Voltage Data [0-3.3V]')
+ax.set_ylabel("deg/sec^2")
+fig.canvas.manager.set_window_title('Plot angular acceleration')
 fig.tight_layout()
 plt.show()

@@ -14,9 +14,9 @@ int main(void) {
     while(1) {
         NU32DIP_GREEN = !NU32DIP_GREEN; //heartbeat
 
-        //delay 100ms
+        //delay 10ms
         int time = _CP0_GET_COUNT(); 
-        while(_CP0_GET_COUNT() - time < 2400000) { ; }
+        while(_CP0_GET_COUNT() - time < 240000) { ; }
 
         //read GPIO0
         //if high, set GPIO7 low (led on)
@@ -55,7 +55,6 @@ void chipInit(void) {
     i2c_master_stop();
     
 }
-
 
 void GPIO7Set(char state) {
     char message;
