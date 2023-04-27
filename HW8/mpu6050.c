@@ -48,7 +48,7 @@ void init_mpu6050(void) {
 }
 
 // Verify the identity of the MPU-6050.
-// If MPU-6050 is functioning and communications are working,
+// If MPU-6050 is functi0ning and communications are working,
 // this function will return 0x68
 uint8_t whoami(void) {
     return read_byte_I2C1(IMU_ADDR, WHO_AM_I);
