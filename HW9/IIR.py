@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 t = [] # column 0
 data = [] # column 1
-dataSet = 'sigA.csv'
+dataSet = 'sigD.csv'
 def main():
     with open(dataSet) as f:
         # open the csv file
@@ -17,9 +17,11 @@ def main():
 
 
 
-    #filter data with moving average filter
+    #filter data with IIR
     x = 15
-    mafData = MAF(data, x)
+    a = 0.9
+    b = 0.1
+    mafData = IIR(data, x, a, b)
 
     mafY, mafFrq = fft(t, mafData) # the data to make the fft from
     Y, frq = fft(t, data) # the data to make the fft from
@@ -31,7 +33,7 @@ def main():
     ax1.plot(t,mafData,'r')
     ax1.set_xlabel('Time')
     ax1.set_ylabel('Amplitude')
-    ax1.set_title(f'{dataSet}, x={x}')
+    ax1.set_title(f'{dataSet}, A={a} B={b}')
     ax2.loglog(frq,abs(Y),'black') # plotting the unfiltered fft
     ax2.loglog(mafFrq,abs(mafY),'r') # plotting the filtered fft
     ax2.set_xlabel('Freq (Hz)')
@@ -56,14 +58,11 @@ def fft(t, data):
     return Y, frq
 
 # moving average filter
-def MAF(data, n):
-    filteredData = []
-    for i in range(len(data)):
-        if i < n: # if the index is less than the window size, skip
-            filteredData.append(data[i])
-            continue
-        else: # take the mean of the window
-            filteredData.append(np.mean(data[i-n:i]))
+def IIR(data, n, a, b):
+    average = 0
+    filteredData = [data[0]]
+    for i in range(1,len(data)):
+        filteredData.append(a * filteredData[i-1] + b * data[i])
     return filteredData
 
 
