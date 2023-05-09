@@ -1,19 +1,12 @@
 #include "nu32dip.h"
 #include "ws2812b.h"
 
-#define NUMLEDS 8
+#define NUMLEDS 16
 
 int main(void) {
     ws2812b_setup();
     wsColor c[NUMLEDS];
 
-    //turn off leds
-    wsColor off = {0, 0, 0};
-    for (int i = 0; i < NUMLEDS; i++) {
-        c[i] = off;
-    }
-   
-    ws2812b_setColor(c, NUMLEDS);
 
     //make led rainbow pattern
     int angle = 0;

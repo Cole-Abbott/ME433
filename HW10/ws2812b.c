@@ -1,6 +1,7 @@
 // WS2812B library
 
 #include "ws2812b.h"
+#include "nu32dip.h"
 // other includes if necessary for debugging
 
 // Timer2 delay times, you can tune these if necessary
@@ -17,7 +18,6 @@ void ws2812b_setup() {
     // initialize output pin as off
     TRISBbits.TRISB9 = 0; // set pin B9 as an output
     LATBbits.LATB9 = 0; // set pin B9 low
-
 }
 
 // build an array of high/low times from the color input array, then output the high/low bits
@@ -36,7 +36,7 @@ void ws2812b_setColor(wsColor * c, int numLEDs) {
         // loop through each color bit, MSB first
         for (j = 7; j >= 0; j--) {
             // if the bit is a 1 /* identify the bit in c[].r, is it 1 */
-            if (c[i].g >> j & 1) {
+            if ((c[i].g >> j) & 1) {
                 // the high is longer
                 delay_times[nB] = delay_times[nB - 1] + HIGHTIME;
                 nB++;
@@ -96,6 +96,7 @@ void ws2812b_setColor(wsColor * c, int numLEDs) {
 
     // turn on the pin for the first high/low
     LATBbits.LATB9 = 1;
+
     TMR2 = 0; // start the timer
     for (i = 1; i < numBits; i++) {
         while (TMR2 < delay_times[i]) {
