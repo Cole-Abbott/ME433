@@ -1,6 +1,4 @@
 from ulab import numpy as np # to get access to ulab numpy functions
-#import matplotlib.pyplot as plt # to plot the sin waves
-#import numpy as np # to get access to numpy functions
 
 #declare 3 arrays of sin waves with different frequencies
 # 1.0 Hz
@@ -31,21 +29,11 @@ ts = np.arange(0,t[-1],Ts) # time vector
 k = np.arange(n)
 T = n/Fs
 frq = k/T # two sides frequency range
-frq = frq[range(int(n/2))] # one side frequency range
+
 Y = np.fft.fft(y) # fft computing and normalization
-
 #print out the fft values
-for t, y in zip(frq, abs(Y)):
-    print(t, y)
+for i in range(len(Y[0])):
+    print(f"({abs(Y[0][i])})")
 
-#Y = Y[range(int(n/2))]
 
-#fig, (ax1, ax2) = plt.subplots(2, 1)
-#ax1.plot(t,y,'b')
-#ax1.set_xlabel('Time')
-#ax1.set_ylabel('Amplitude')
-#ax2.loglog(frq,abs(Y),'b') # plotting the fft
-#ax2.set_xlabel('Freq (Hz)')
-#ax2.set_ylabel('|Y(freq)|')
-#plt.show()
 
