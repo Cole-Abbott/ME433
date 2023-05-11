@@ -7,7 +7,6 @@ int main(void) {
     ws2812b_setup();
     wsColor c[NUMLEDS];
 
-
     //make led rainbow pattern
     int angle = 0;
     while(1) {
