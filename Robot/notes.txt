@@ -1,0 +1,12 @@
+Motors
+Timer 3, OC2, OC3
+2OC pins, 2 dir pins
+
+Servo
+Timer 2, OC1, B7
+
+NeoPixel
+1 gpio pin
+
+Pi Pico
+Uart 2
