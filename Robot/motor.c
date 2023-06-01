@@ -1,4 +1,4 @@
-#include "servo.h"
+#include "motor.h"
 #include "nu32dip.h"
 
 
@@ -14,7 +14,7 @@ void motorInit(void) {
     OC2CONbits.OCTSEL = 1;   // Use timer3
     OC2RS = 0;               // duty cycle = OC1RS/(PR2+1) = 0 = 0%
     OC2R = 0;                // initialize before turning OC2 on; afterward it is read-only
-    _CP0_GET_COUNT();
+
     //setup OC3
     OC3CONbits.OCM = 0b110;  // PWM mode without fault pin; other OC3CON bits are defaults
     OC3CONbits.OCTSEL = 1;   // Use timer3
@@ -22,9 +22,15 @@ void motorInit(void) {
     OC3R = 0;                // initialize before turning OC2 on; afterward it is read-only
 
     //todo map OC1, OC2 to pins
-    //setup dir pins
-    //RPB7Rbits.RPB7R = 0b0101;     //set B7 to OC1
+    //OC2 -> B11
+    RPB11Rbits.RPB11R = 0b0101;     //set B11 to OC2
     
+    //OC3 -> B14
+    RPB14Rbits.RPB14R = 0b0101;     //set B14 to OC3
+    
+    //setup dir pins: B13, B15
+    TRISBbits.TRISB13 = 0;  //set B13 to output
+    TRISBbits.TRISB15 = 0;  //set B15 to output
     
     
     //turn on timer2, OC2, OC3
@@ -35,13 +41,28 @@ void motorInit(void) {
 
 }
 
-
 //set the motor1 PWM
-void motor1Set(float PWM) {
-
+//A motor: OC2 -> B11 -> AEN, DIR -> B13 -> APH
+//PWM is between -1 and 1
+void motorASet(float PWM) {
+    if (PWM > 0) {
+        LATBbits.LATB13 = 1; //set DIR to forward
+        OC2RS = (int) (PWM * 2400); //set PWM
+    } else {
+        LATBbits.LATB13 = 0; //set DIR to reverse
+        OC2RS = (int) (-PWM * 2400); //set PWM
+    }
 }
 
 //set the motor2 PWM
-void motor2Set(float PWM) { 
-
+//B motor: OC3 -> B14 -> BEN, DIR -> B15 -> BPH
+//PWM is between -1 and 1
+void motorBSet(float PWM) { 
+    if (PWM > 0) {
+        LATBbits.LATB15 = 1; //set DIR to forward
+        OC3RS = (int) (PWM * 2400); //set PWM
+    } else {
+        LATBbits.LATB15 = 0; //set DIR to reverse
+        OC3RS = (int) (-PWM * 2400); //set PWM
+    }
 }

@@ -1,12 +1,38 @@
+USED PINS and PERIPHERALS :
+by PIC: 
+    A: 0,2,4 
+    B: 3,4,5 
+by Robot:
+    Servo: 
+        T2
+        OC1 -> B7
+    Motors: 
+        T3 
+        OC2 -> B11
+        OC3 -> B14
+        B15
+        B13
+    NeoPixel:
+        T4
+        T5
+        B9
+    Pico: 
+
+
 Motors
-Timer 3, OC2, OC3
-2OC pins, 2 dir pins
+    Timer 3, OC2, OC3
+    2OC pins, 2 dir pins
+    A motor: OC2 -> B11 -> AEN, DIR -> B13 -> APH
+    B motor: OC3 -> B14 -> BEN, DIR -> B15 -> BPH
+
 
 Servo
 Timer 2, OC1, B7
 
 NeoPixel
-1 gpio pin
+Timer 4 for timing pulses
+Timer 5 for ISR
+1 gpio pin B9
 
 Pi Pico
 Uart 2
