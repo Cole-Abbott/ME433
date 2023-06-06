@@ -6,6 +6,7 @@ by Robot:
     Servo: 
         T2
         OC1 -> B7
+        OC4 -> B6
     Motors: 
         T3 
         OC2 -> B11
@@ -17,6 +18,11 @@ by Robot:
         T5
         B9
     Pico: 
+        UART2
+        A1 is U2RX
+        B0 is U2TX
+    PID control:
+        T1
 
 
 Motors

@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "enabled",
     "files.associations": {
         "*.c": "c",
-        "nu32dip.h": "c"
+        "nu32dip.h": "c",
+        "uart2.h": "c"
     }
 }
