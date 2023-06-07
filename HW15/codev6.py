@@ -97,7 +97,25 @@ reds = np.zeros(60,dtype=np.uint16)
 greens = np.zeros(60,dtype=np.uint16)
 blues = np.zeros(60,dtype=np.uint16)
 bright = np.zeros(60)
+
+filteredReds = np.zeros(50,dtype=np.uint16)
+filteredGreens = np.zeros(50,dtype=np.uint16)
+filteredBlues = np.zeros(50,dtype=np.uint16)
+filteredBright = np.zeros(50)
+
+# moving average filter
+def MAF(data, n):
+    filteredData = []
+    n = int (n/2)
+    for i in range(n,len(data)-n): 
+        # take the mean of the window
+        filteredData.append(np.mean(data[i-n:i+n]))
+    return filteredData
+
 while True:
+    # wait for a newline from the computer
+    #input()
+
     cam.capture(bitmap)
     #bitmap[10,10] = 0 # set a pixel to black
     #bitmap[10,20] = 0 # [Y,X], [0,0] is bottom left
@@ -107,76 +125,64 @@ while True:
     #0x7E0 ->  0b0000011111100000 # all red
     #0xF800 -> 0b1111100000000000 # all blue
     
-    # wait for a newline from the computer
+    
     row = 40 # which row to send to the computer
     # draw a red dot above the row, in the middle
     bitmap[row+1,30] = 0x3F<<5
-
-    # calculate the colors, average the 5 pixels above and below the row
-     # calculate the colors
+    # force some colors to test the bits
+    #for i in range(0,20):
+    #    bitmap[row,i] = 0xF800 # blue
+    #for i in range(20,40):
+    #    bitmap[row,i] = 0x1F # green
+    #for i in range(40,60):
+    #    bitmap[row,i] = 0x7E0 # red
+    # calculate the colors
     for i in range(0,60):
-        reds[i] = ((bitmap[row,i]>>5)&0x3F)/0x3F*100 + ((bitmap[row+1,i]>>5)&0x3F)/0x3F*100 + ((bitmap[row-1,i]>>5)&0x3F)/0x3F*100
-        greens[i] = ((bitmap[row,i])&0x1F)/0x1F*100 + ((bitmap[row+1,i])&0x1F)/0x1F*100 + ((bitmap[row-1,i])&0x1F)/0x1F*100
-        blues[i] = (bitmap[row,i]>>11)/0x1F*100 + (bitmap[row+1,i]>>11)/0x1F*100 + (bitmap[row-1,i]>>11)/0x1F*100
+        reds[i] = ((bitmap[row,i]>>5)&0x3F)/0x3F*100
+        greens[i] = ((bitmap[row,i])&0x1F)/0x1F*100
+        blues[i] = (bitmap[row,i]>>11)/0x1F*100
         bright[i] = reds[i]+greens[i]+blues[i]
 
-     # find average brightness on each edge of the line
-    RedgeAvg = 0
-    GedgeAvg = 0
-    BedgeAvg = 0
+    # lowpass filter the data
+    filteredReds = MAF(reds,10)
+    filteredGreens = MAF(greens,10)
+    filteredBlues = MAF(blues,10)
+    filteredBright = MAF(bright,10)
 
-    for i in range(0,10):
-        RedgeAvg += (reds[i] + reds[59-i]) / 20 
-        GedgeAvg += (greens[i] + greens[59-i]) / 20
-        BedgeAvg += (blues[i] + blues[59-i]) / 20
-
-    # find the area in the middle that is most different from the edges
-    RmidPointAvg = 0
-    RmidPoint = 0
-    GmidPointAvg = 0
-    GmidPoint = 0
-    BmidPointAvg = 0
-    BmidPoint = 0
-
-    for i in range(10,50):
-        # find the average of each color in the middle
-        RmidAvg = sum(reds[i:i+10])/10
-        GmidAvg = sum(greens[i:i+10])/10
-        BmidAvg = sum(blues[i:i+10])/10
-
-        # find the difference between the middle and the edges
-        Rdiff = abs(RmidAvg - RedgeAvg)
-        Gdiff = abs(GmidAvg - GedgeAvg)
-        Bdiff = abs(BmidAvg - BedgeAvg)
-
-        # if this is the biggest difference, save the center of the area
-        if Rdiff > RmidPointAvg:
-            RmidPointAvg = Gdiff
-            RmidPoint = i+5
-
-        if Gdiff > GmidPointAvg:
-            GmidPointAvg = Gdiff
-            GmidPoint = i+5
-
-        if Bdiff > BmidPointAvg:
-            BmidPointAvg = Bdiff
-            BmidPoint = i+5
-
-    midPoint = int((RmidPoint + GmidPoint + BmidPoint) / 3)
-
-    #write the midpoint to pic over uart
-    value_str = str(midPoint)+'\n'
-    uart.write(value_str.encode())  
-
-    #print(midPoint, end=" ")
-    #for i in range(-1,2):
-    #    for j in range(-1,2):
-    #        if (midPoint+j>=0 and midPoint+j<60):
-    #            bitmap[row+i,midPoint+j] = 0xF800
+    # threshold to try to find the line
+    com = 0
+    mass = 1
+    for i in range(0,50):
+        if (filteredReds[i]>70 and filteredBright[i]>70 and filteredBlues[i]>40):
+            bitmap[row,i+5] = 0xFFFF
+        elif (greens[i]>70 and filteredBright[i]>70 and filteredBlues[i]<40):
+            bitmap[row,i+5] = 0xFFFF
+        elif (filteredReds[i]<30 and filteredBlues[i]>60 ):
+            bitmap[row,i+5] = 0xFFFF
+        else:
+            bitmap[row,i+5] = 0x0000
+        
+        com += i*bitmap[row,i+5]
+        mass += bitmap[row,i+5]
     
+    
+    # draw a dot at the center of mass
+    line = round(com/mass) + 5
+     #write the midpoint to pic over uart
+    value_str = str(line)+'\n'
+    uart.write(value_str.encode()) 
+    #print(line)
+    for i in range(-1,2):
+        for j in range(-1,2):
+            if (line+j>=0 and line+j<60):
+                bitmap[row+i,line+j] = 0xF800
+    
+    #print the raw pixel value to the computer
+    #for i in range(0,60):
+    #    print(str(i)+" "+str(bitmap[row,i]))
 
     bitmap.dirty() # updae the image on the screen
     display.refresh(minimum_frames_per_second=0)
     t1 = time.monotonic_ns()
-    print("fps", 1e9 / (t1 - t0))
+    #print("fps", 1e9 / (t1 - t0))
     t0 = t1
