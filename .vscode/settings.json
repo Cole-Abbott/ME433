@@ -4,5 +4,9 @@
         "*.c": "c",
         "nu32dip.h": "c",
         "uart2.h": "c"
-    }
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8"
+    },
+    "python.formatting.provider": "none"
 }

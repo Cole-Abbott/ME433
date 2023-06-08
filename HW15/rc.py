@@ -11,19 +11,23 @@ password = ''
 
 def move_forward():
     print ("Forward")
-    uart.write('hi')
+    uart.write('1\n')
     
 def move_backward():
     print ("Backward")
+    uart.write('2\n')
     
 def move_stop():
     print ("Stop")
+    uart.write('3\n')
     
 def move_left():
     print ("Left")
+    uart.write('4\n')
     
 def move_right():
     print ("Right")
+    uart.write('5\n')
     
 def connect():
     #Connect to WLAN
@@ -101,8 +105,8 @@ def serve(connection):
         client.close()
 
 try:
-    tx = machine.Pin(4, Pin.OUT)
-    rx = machine.Pin(5, Pin.OUT)
+    tx = machine.Pin(4, machine.Pin.OUT)
+    rx = machine.Pin(5, machine.Pin.OUT)
     uart = machine.UART(1, 9600)                         # init with given baudrate
     uart.init(9600, bits=8, parity=None, stop=1, tx=tx, rx=rx) # init with given parameters
     

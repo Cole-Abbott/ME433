@@ -22,7 +22,7 @@ by Robot:
         A1 is U2RX
         B0 is U2TX
     PID control:
-        T1
+        
 
 
 Motors

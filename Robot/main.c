@@ -4,7 +4,7 @@
 #include "servo.h"
 #include "uart2.h"
 
-#define MAXPWM 0.5
+#define MAXPWM .9
 #define Kp 0.02
 
 
@@ -25,24 +25,45 @@ int main(void) {
 		int com;
 		com = get_COM();
 
-		sprintf(message, "COM: %d\r\n", com);
+		sprintf(message, "DIR: %d\r\n", com);
 		NU32DIP_WriteUART1(message);
+		//1 = forward
+		//2 = backward
+		//3 = stop
+		//4 = left
+		//5 = right
+		switch (com)
+		{
+		case 1:
+			motorASet(MAXPWM);
+			motorBSet(MAXPWM);
+			break;
 
-		//if com [25-35], go straight
-		if (com > 25 && com < 35) {
-			motorASet(MAXPWM);
-			motorBSet(MAXPWM);
+		case 2:
+			motorASet(-MAXPWM * 0.75);
+			motorBSet(-MAXPWM * 0.75);
+			break;
+
+		case 3:
+			motorASet(0);
+			motorBSet(0);
+			break;
+
+		case 4:
+			motorASet(MAXPWM * 0.7);
+			motorBSet(0);
+			break;
+
+		case 5:
+			motorASet(0);
+			motorBSet(MAXPWM * 0.7);
+			break;
+			
+		break;
+		
+
 		}
-		//if com [35-60], turn right
-		else if (com > 35) {
-			motorASet(MAXPWM);
-			motorBSet(MAXPWM * (1 - Kp * (com - 35)));
-		}
-		//if com [0-25], turn left
-		else if (com < 25) {
-			motorASet(MAXPWM * (1 - Kp * (25 - com)));
-			motorBSet(MAXPWM);
-		}
+
 
 
     }
